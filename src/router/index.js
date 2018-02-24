@@ -15,6 +15,28 @@ export default new Router({
           component:resolve => require(['../components/pages/Index'], resolve)
         }
       ]
-    }
+    },
+    /***********************  form  ************************/
+    {
+      path:'/',
+      component:Home,
+      children:[
+        {
+          path: '/forms/formTest',
+          component:resolve => require(['../components/pages/forms/FormTest'], resolve)
+        }
+      ]
+    },
+    /***********************  table  ************************/
+    {
+      path:'/',
+      component:Home,
+      children:[
+        {
+          path: '/tables/tableTest',
+          component:resolve => require(['../components/pages/tables/TableTest'], resolve)
+        }
+      ]
+    },
   ]
 })

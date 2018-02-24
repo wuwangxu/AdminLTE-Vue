@@ -9,7 +9,7 @@
       <router-view></router-view>
     </div>
     <!-- 公共尾 -->
-    <com-footer></com-footer>
+    <!--<com-footer></com-footer>-->
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
       <!-- Create the tabs -->
@@ -221,5 +221,12 @@
 </script>
 
 <style>
-
+  .com-view{
+    position:absolute;
+    top:0;
+    left:0;
+    padding-top:50px;
+    width:100%;
+    height:100%;
+  }
 </style>

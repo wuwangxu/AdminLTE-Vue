@@ -5,6 +5,7 @@ import router from './router'
 /************************************[样式类]************************************/
 // Bootstrap 3.3.7
 import '../bower_components/bootstrap/dist/css/bootstrap.min.css'
+import '../bower_components/bootstrap/dist/js/bootstrap.min'
 // Font Awesome
 import '../bower_components/font-awesome/css/font-awesome.min.css'
 Vue.config.productionTip = false
@@ -28,8 +29,6 @@ import '../static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css'
 /************************************[js类]************************************/
 // jQuery
 import $ from 'jquery'
-// bootstrap
-import 'bootstrap'
 //jQuery UI
 import '../static/plugins/jQueryUI/jquery-ui.min'
 
@@ -51,17 +50,17 @@ import '../bower_components/jquery-knob/dist/jquery.knob.min.js'
 // import '../bower_components/bootstrap-daterangepicker/daterangepicker.js'
 // datepicker
 import '../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'
-// Bootstrap WYSIHTML5
+// Bootstrap WYSIHTML5(富文本编辑器)
 // import '../static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min'
 // Slimscroll (jquery未定义)
 // import '../bower_components/jquery-slimscroll/jquery.slimscroll.min.js'
 // FastClick
 import '../bower_components/fastclick/lib/fastclick.js'
-// AdminLTE App(jquery未定义)
-// import '../static/js/adminlte.min'
-// AdminLTE dashboard demo (This is only for demo purposes)(jquery未定义)
+// AdminLTE App
+import '../static/js/adminlte.min'
+// AdminLTE dashboard demo (This is only for demo purposes)
 // import '../static/js/pages/dashboard.js'
-// AdminLTE for demo purposes(jquery未定义)
+// AdminLTE for demo purposes
 // import '../static/js/demo.js'
 
 // 初始化

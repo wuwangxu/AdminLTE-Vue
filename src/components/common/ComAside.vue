@@ -27,19 +27,9 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">导航</li>
         <li class="active treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>主页</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="active">
-              <a href="index.html">
-                <i class="fa fa-circle-o"></i>风格1
-              </a>
-            </li>
-          </ul>
+          <router-link to="/">
+            <i class="fa fa-home"></i><span>主页</span>
+          </router-link>
         </li>
 
         <li class="treeview">
@@ -50,6 +40,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
+            <li><router-link to="/forms/FormTest"><i class="fa fa-circle-o"></i> form路由跳转测试</router-link></li>
             <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
             <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
             <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
@@ -63,6 +54,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
+            <li><router-link to="/tables/TableTest"><i class="fa fa-circle-o"></i> table路由跳转测试</router-link></li>
             <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
             <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
           </ul>
@@ -75,7 +67,10 @@
 
 <script>
   export default {
-    name: "com-aside"
+    name: "com-aside",
+    mounted(){
+
+    }
   }
 </script>
 

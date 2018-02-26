@@ -1,6 +1,6 @@
 <template>
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div id="index">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -384,6 +384,8 @@
   }
 </script>
 
-<style scoped>
-
+<style>
+  #index{
+    height:100%;
+  }
 </style>

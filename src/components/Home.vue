@@ -223,10 +223,13 @@
 <style>
   .com-view{
     position:absolute;
-    top:0;
-    left:0;
-    padding-top:50px;
-    width:100%;
-    height:100%;
+    top:50px;
+    left:230px;
+    width:calc(100% - 230px);
+    height:calc(100% - 50px);
+    background:#ECF0F5;
+    padding:20px;
+    overflow:auto;
   }
+  .content-wrapper{margin:0;}
 </style>

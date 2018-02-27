@@ -68,7 +68,7 @@
           formData.append('password',this.password);
           formData.append('userType',"1");
           this.axios.post(
-            this.globalUrl+'auth/login',formData,{
+            this.preUrl.interfaceUrl+'auth/login',formData,{
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
               }

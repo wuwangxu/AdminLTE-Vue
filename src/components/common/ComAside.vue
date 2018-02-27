@@ -40,7 +40,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><router-link to="/tables/TableTest"><i class="fa fa-circle-o"></i> 表格</router-link></li>
+            <li><router-link to="/tables/TableTest"><i class="fa fa-circle-o"></i> 表格1</router-link></li>
+            <li><router-link to="/tables/TableTest2"><i class="fa fa-circle-o"></i> 表格2</router-link></li>
           </ul>
         </li>
       </ul>

@@ -41,6 +41,16 @@ const router = new Router({
         }
       ]
     },
+    {
+      path:'/',
+      component:Home,
+      children:[
+        {
+          path: '/tables/tableTest2',
+          component:resolve => require(['../components/pages/tables/TableTest2'], resolve)
+        }
+      ]
+    }
   ]
 });
 

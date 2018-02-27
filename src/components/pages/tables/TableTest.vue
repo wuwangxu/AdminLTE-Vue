@@ -247,6 +247,7 @@
           },res=>{
             this.tableData = res.rows;
             this.tableLoading = false;
+            this.levelParent = [];
             for (let i=0;i<res.rows.length;i++){
               if (res.rows[i].isTop ==="1"){
                 this.levelParent.push(res.rows[i]);

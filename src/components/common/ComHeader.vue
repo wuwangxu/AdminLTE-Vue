@@ -251,7 +251,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">登 出</a>
+                  <a class="btn btn-default btn-flat" @click="logOut">登 出</a>
                 </div>
               </li>
             </ul>
@@ -268,7 +268,15 @@
 
 <script>
   export default {
-    name: "ComHeader"
+    name: "ComHeader",
+    methods:{
+      logOut(){
+        localStorage.clear();
+        this.$router.push({
+          'path':'/Login'
+        });
+      }
+    }
   }
 </script>
 

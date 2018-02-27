@@ -43,14 +43,18 @@ import '../static/js/demo.js'
 // table
 import '../bower_components/datatables.net/js/jquery.dataTables.min.js'
 import '../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js'
+
 // 初始化
 window.onload = function () {
   $.widget.bridge('uibutton', $.ui.button);
 };
-
-//全局地址
-Vue.prototype.globalUrl = 'http://192.168.1.143:8082/project/'
-new Vue({
+// adminUtils
+Vue.prototype.adminUtil = require('../build/adminUtils');
+// 引入url配置文件
+const preUrl = require('../config/preUrl');
+// 全局地址
+Vue.prototype.globalUrl = preUrl.serverUrl;
+  new Vue({
   el: '#app',
   router,
   components: { App },

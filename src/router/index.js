@@ -32,23 +32,32 @@ const router = new Router({
     },
     /***********************  table  ************************/
     {
-      path:'/',
-      component:Home,
-      children:[
+      path: '/',
+      component: Home,
+      children: [
         {
-          path: '/tables/tableTest',
-          component:resolve => require(['../components/pages/tables/TableTest'], resolve)
-        }
-      ]
-    },
-    {
-      path:'/',
-      component:Home,
-      children:[
+          path: '/Table1',
+          component: resolve => require(['../components/pages/tables/Table1'], resolve)
+        },
         {
-          path: '/tables/tableTest2',
-          component:resolve => require(['../components/pages/tables/TableTest2'], resolve)
-        }
+          path: '/Table2',
+          component:resolve => require(['../components/pages/tables/Table2'], resolve)
+        },
+        {
+          path: '/Table2/edit/:id',
+          name: 'Table2Edit',
+          component:resolve => require(['../components/pages/tables/TableComponents/Table2Edit'], resolve)
+        },
+        {
+          path: '/Table2/maintain/:id',
+          name: 'Table2Maintain',
+          component:resolve => require(['../components/pages/tables/TableComponents/Table2Maintain'], resolve)
+        },
+        {
+          path: '/Table2/maintain/:id/Add',
+          name: 'Table2MaintainAdd',
+          component:resolve => require(['../components/pages/tables/TableComponents/Table2MaintainAdd'], resolve)
+        },
       ]
     }
   ]

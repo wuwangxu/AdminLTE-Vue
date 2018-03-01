@@ -1,5 +1,5 @@
 <template>
-  <div id="tableTest2" class="content-wrapper" style="min-height:auto">
+  <div id="tableTest" class="content-wrapper" style="min-height:auto">
     <div class="row">
       <div class="col-xs-12" style="height:100%">
         <div class="box" style="height:100%">
@@ -7,7 +7,7 @@
             <i class="fa fa-spinner fa-pulse"></i>
           </div>
           <div class="box-header">
-            <h3 class="box-title">TableTest 2</h3>
+            <h3 class="box-title">TableTest 1</h3>
             <div class="pull-right">
               <button class="btn btn-primary btn-sm fa fa-plus" data-toggle="modal" data-target="#tableModal" @click="getAllData"> 新增</button>
             </div>
@@ -19,8 +19,7 @@
               <tr>
                 <th>编号</th>
                 <th>名称</th>
-                <th>类型名称</th>
-                <th>是否推荐</th>
+                <th>级别</th>
                 <th>备注</th>
                 <th>操作</th>
               </tr>
@@ -29,12 +28,10 @@
               <tr v-for="(item,index) in tableData">
                 <td>{{item.code}}</td>
                 <td>{{item.name}}</td>
-                <td>{{item.typeName}}</td>
-                <td>{{item.isTj==="1"?'是':'否'}}</td>
+                <td>{{item.isTop==='1'?'一级':'二级'}}</td>
                 <td>{{item.remarks}}</td>
                 <td>
                   <button class="btn btn-primary btn-sm fa fa-edit" title="编辑" @click="edit(item)" data-toggle="modal" data-target="#tableModal2"></button>
-                  <button class="btn btn-warning btn-sm fa fa-cog" title="维护"></button>
                   <button class="btn btn-danger btn-sm fa fa-bitbucket" title="删除" @click="del(item.businessId)"></button>
                 </td>
               </tr>
@@ -91,36 +88,34 @@
                     </div>
                   </div>
                   <div class="form-group">
-                  <label for="name" class="col-sm-2 control-label">名称</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="name" placeholder="请输入名称" v-model="tableForm.name">
-                  </div>
-                </div>
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">类型名称</label>
+                    <label for="name" class="col-sm-2 control-label">名称</label>
                     <div class="col-sm-10">
-                      <select class="form-control" v-model="tableForm.parent">
-                        <option v-for="(item,index) in typeName" :value="item.businessId">{{item.name}}</option>
-                      </select>
+                      <input type="text" class="form-control" id="name" placeholder="请输入名称" v-model="tableForm.name">
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-2 control-label">是否推荐</label>
+                    <label class="col-sm-2 control-label">一级</label>
                     <div class="col-sm-10 radio">
                       <label>
-                        <input type="radio" name="optionsRadios" v-model="tableForm.isTj" value="1">是
+                        <input type="radio" name="optionsRadios" v-model="tableForm.isTop" value="1">是
                       </label>
                       <label style="margin-left:1rem">
-                        <input type="radio" name="optionsRadios" v-model="tableForm.isTj" value="0">否
+                        <input type="radio" name="optionsRadios" v-model="tableForm.isTop" value="0">否
                       </label>
                     </div>
                   </div>
-                  <div class="form-group" v-show="tableForm.isTj === '0'">
+                  <div class="form-group" v-show="tableForm.isTop === '0'">
                     <label class="col-sm-2 control-label">父级</label>
                     <div class="col-sm-10">
                       <select class="form-control" v-model="tableForm.parent">
-                        <option v-for="(item,index) in typeName" :value="item.businessId">{{item.name}}</option>
+                        <option v-for="(item,index) in levelParent" :value="item.businessId">{{item.name}}</option>
                       </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="sort" class="col-sm-2 control-label">排序</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="sort" placeholder="请输入排序号" v-model="tableForm.sort">
                     </div>
                   </div>
                   <div class="form-group">
@@ -175,18 +170,18 @@
                     <label class="col-sm-2 control-label">一级</label>
                     <div class="col-sm-10 radio">
                       <label>
-                        <input type="radio" name="optionsRadios" v-model="tableForm.isTj" value="1">是
+                        <input type="radio" name="optionsRadios" v-model="tableForm.isTop" value="1">是
                       </label>
                       <label style="margin-left:1rem">
-                        <input type="radio" name="optionsRadios" v-model="tableForm.isTj" value="0">否
+                        <input type="radio" name="optionsRadios" v-model="tableForm.isTop" value="0">否
                       </label>
                     </div>
                   </div>
-                  <div class="form-group" v-show="tableForm.isTj === '0'">
+                  <div class="form-group" v-show="tableForm.isTop === '0'">
                     <label class="col-sm-2 control-label">父级</label>
                     <div class="col-sm-10">
                       <select class="form-control" v-model="tableForm.parent">
-                        <option v-for="(item,index) in typeName" :value="item.businessId">{{item.name}}</option>
+                        <option v-for="(item,index) in levelParent" :value="item.businessId">{{item.name}}</option>
                       </select>
                     </div>
                   </div>
@@ -229,12 +224,12 @@
           businessId:'',
           code:'',
           name:'',
-          isTj:'1',
-          typeName:'',
+          isTop:'1',
+          parent:'',
           remarks:'',
           sort:''
         },
-        typeName:[], //父级
+        levelParent:[], //父级
         tableLoading:false,
         pages:'', //分页
         pageNu:1,
@@ -245,7 +240,7 @@
       //获取数据
       getData(){
         this.tableLoading = true;
-        this.adminUtil.ajaxGetUtil('bgoods/queryBGoodsByPaginationWithoutAuth',{
+        this.adminUtil.ajaxGetUtil('bgoodstype/queryBGoodsTypeByPaginationWithoutAuth',{
             //params
             rows:this.pageSize,
             page:this.pageNu
@@ -253,9 +248,8 @@
             this.tableData = res.rows;
             this.tableLoading = false;
             this.pages = res.pages;
-            console.log(res);
           },err=>{
-            alert('网络错误!');
+            console.log(err);
             this.tableLoading = false;
           }
         )
@@ -267,10 +261,10 @@
             rows:999,
             page:this.pageNu
           },res=>{
-            this.typeName = [];
+            this.levelParent = [];
             for (let i=0;i<res.rows.length;i++){
-              if (res.rows[i].isTop ==="0"){
-                this.typeName.push(res.rows[i]);
+              if (res.rows[i].isTop ==="1"){
+                this.levelParent.push(res.rows[i]);
               }
             }
           },err=>{
@@ -284,7 +278,7 @@
           businessId:this.tableForm.businessId,
           code:this.tableForm.code,
           name:this.tableForm.name,
-          isTj:this.tableForm.isTj,
+          isTop:this.tableForm.isTop,
           parentId:this.tableForm.parent,
           remarks:this.tableForm.remarks
         },res=>{
@@ -320,7 +314,7 @@
         this.tableForm.businessId = item.businessId;
         this.tableForm.code = item.code;
         this.tableForm.name = item.name;
-        this.tableForm.isTj = item.isTj;
+        this.tableForm.isTop = item.isTop;
         this.tableForm.sort = item.seq;
         this.tableForm.parent = item.parentId;
         this.tableForm.remarks = item.remarks;
@@ -330,7 +324,7 @@
           businessId:this.tableForm.businessId,
           code:this.tableForm.code,
           name:this.tableForm.name,
-          isTj:this.tableForm.isTj,
+          isTop:this.tableForm.isTop,
           parentId:this.tableForm.parent,
           remarks:this.tableForm.remarks
         },res=>{
@@ -351,7 +345,7 @@
         this.tableForm.businessId = '';
         this.tableForm.code = '';
         this.tableForm.name = '';
-        this.tableForm.isTj = '1';
+        this.tableForm.isTop = '1';
         this.tableForm.parent = '';
         this.tableForm.remarks = '';
         this.tableForm.sort = '';
@@ -384,8 +378,8 @@
 </script>
 
 <style>
-  #tableTest2{height:calc(100% - 30px);}
-  #tableTest2 tbody{min-height:300px;}
+  #tableTest{height:calc(100% - 30px);}
+  #tableTest tbody{min-height:300px;}
   .odd{display:none;}
   .example-modal .modal {
     position: relative;
@@ -399,7 +393,7 @@
   .example-modal .modal {
     background: transparent !important;
   }
-  #tableTest2>.row {
+  #tableTest>.row {
     height: 100%;
   }
   #example2_wrapper>.row:nth-child(2){height:calc(100% - 100px);}

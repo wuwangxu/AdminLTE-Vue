@@ -34,13 +34,13 @@
           </div>
           <!-- /.box-body -->
           <div class="box-footer" v-show="isLogining===false">
-            <button type="submit" class="btn btn-info pull-right" @click="login">登 录</button>
-            <button type="reset" class="btn btn-default pull-right" style="margin-right:20px">重置</button>
+            <a class="btn btn-info pull-right" @click="login">登 录</a>
+            <a class="btn btn-default pull-right" style="margin-right:20px">重置</a>
           </div>
 
           <div class="box-footer box-footer-loading" v-show="isLogining===true">
-            <button type="submit" class="btn btn-info pull-right" disabled @click="login"><i class="fa fa-spinner fa-pulse"></i> 登录中</button>
-            <button type="reset" class="btn btn-default pull-right disabled" disabled style="margin-right:20px">重置</button>
+            <a class="btn btn-info pull-right" disabled @click="login"><i class="fa fa-spinner fa-pulse"></i> 登录中</a>
+            <a class="btn btn-default pull-right disabled" disabled style="margin-right:20px">重置</a>
           </div>
           <!-- /.box-footer -->
         </form>

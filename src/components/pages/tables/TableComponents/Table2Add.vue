@@ -94,7 +94,6 @@
       }
     },
     methods:{
-      getData(){},
       //获取全部数据
       getAllData(){
         this.adminUtil.ajaxGetUtil('bgoodstype/queryBGoodsTypeByPaginationWithoutAuth',{
@@ -166,28 +165,31 @@
           remarks:this.table2Form.remarks
         },res=>{
           if (res.code===200){
-            this.formReset();
-            this.$emit('table2DetailEvent',2);
-            this.$notify({
-              title: '提示信息',
-              message: res.message,
-              type: 'success'
-            });
             loading.close();
+            this.$confirm('保存成功!是否继续新增?', '提示', {
+              confirmButtonText: '是',
+              cancelButtonText: '否',
+              type: 'success'
+            }).then(() => {
+              this.formReset();
+            }).catch(() => {
+              this.formReset();
+              this.$emit('table2DetailEvent',2);
+            });
           }else{
+            loading.close();
             this.$notify({
               title: '警告',
               message: res.message,
               type: 'warning'
             });
-            loading.close();
           }
         },err=>{
+          loading.close();
           this.$notify.error({
             title: '错误',
             message: '网络错误',
           });
-          loading.close();
         })
       },
       //取消

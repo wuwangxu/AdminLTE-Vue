@@ -2,7 +2,13 @@
   <div id="tableTest2" class="content-wrapper" style="min-height:auto">
     <div class="row">
       <div class="col-xs-12" style="height:100%">
-        <components :is="currentView" @table2DetailEvent="table2DetailEvent" :ref="currentView"></components>
+        <table2-detail
+          v-show="currentView===1"
+          @table2DetailEvent="table2DetailEvent"
+          ref="table2Detail"></table2-detail>
+        <table2-add
+          v-show="currentView===2"
+          @table2DetailEvent="table2DetailEvent"></table2-add>
       </div>
     </div>
   </div>
@@ -15,7 +21,7 @@
     name: "table-test",
     data(){
       return {
-        currentView:'Table2Detail'
+        currentView:1
       }
     },
     methods:{
@@ -24,16 +30,16 @@
         switch(type){
           //新增按钮触发
           case 1:
-            this.currentView = 'Table2Add';
+            this.currentView = 2;
             break;
           //新增完成
           case 2:
-            this.currentView = 'Table2Detail';
-            this.$refs.Table2Detail.getData();
+            this.currentView = 1;
+            this.$refs.table2Detail.getData();
             break;
           //新增取消
           case 3:
-            this.currentView = 'Table2Detail';
+            this.currentView = 1;
             break;
         }
       }

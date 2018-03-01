@@ -79,18 +79,34 @@
               sessionStorage.setItem("token",token);
               sessionStorage.setItem("user",this.username);
               this.isLogining = false;
-              alert('登录成功!');
+              this.$notify.success({
+                title:'提示',
+                message:'登录成功!',
+                duration:2000
+              });
               this.$router.push({'path':'/'});
             }else{
-              alert('用户名或密码不正确!');
               this.isLogining = false;
+              this.$notify.warning({
+                title:'警告',
+                message:'用户名或密码不正确!',
+                duration:2000
+              });
             }
           }).catch((err)=>{
-            console.log(err);
             this.isLogining = false;
+            this.$notify.error({
+              title:'错误',
+              message:'网络错误',
+              duration:2000
+            });
           })
         }else{
-          alert('用户名与密码不能为空!');
+          this.$notify.warning({
+            title:'警告',
+            message:'用户名和密码不能为空!',
+            duration:2000
+          });
         }
       }
     }

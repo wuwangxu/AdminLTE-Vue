@@ -272,6 +272,7 @@
     methods:{
       logOut(){
         localStorage.clear();
+        sessionStorage.clear();
         this.$router.push({
           'path':'/Login'
         });

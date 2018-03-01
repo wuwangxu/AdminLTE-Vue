@@ -3,6 +3,11 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 
+// ElementUI
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI);
+
 Vue.prototype.axios = axios;
 
 /************************************[样式类]************************************/
@@ -53,6 +58,7 @@ Vue.prototype.adminUtil = require('../build/adminUtils');
 // 引入url配置文件
 const preUrl = require('../config/preUrl');
 // 全局地址
+Vue.prototype.preUrl = preUrl;
 Vue.prototype.globalUrl = preUrl.serverUrl;
   new Vue({
   el: '#app',

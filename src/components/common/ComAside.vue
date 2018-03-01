@@ -33,14 +33,15 @@
         </li>
 
         <li class="treeview">
-          <a href="#">
+          <a>
             <i class="fa fa-table"></i> <span>Tables</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><router-link to="/tables/TableTest"><i class="fa fa-circle-o"></i> 表格</router-link></li>
+            <li><router-link to="/Table1"><i class="fa fa-circle-o"></i> 表格1</router-link></li>
+            <li><router-link to="/Table2"><i class="fa fa-circle-o"></i> 表格2</router-link></li>
           </ul>
         </li>
       </ul>
@@ -58,6 +59,6 @@
   }
 </script>
 
-<style scoped>
+<style>
 
 </style>

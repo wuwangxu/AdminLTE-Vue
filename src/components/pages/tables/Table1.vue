@@ -3,13 +3,10 @@
     <div class="row">
       <div class="col-xs-12" style="height:100%">
         <div class="box" style="height:100%">
-          <div class="overlay" v-show="tableLoading === true">
-            <i class="fa fa-spinner fa-pulse"></i>
-          </div>
           <div class="box-header">
-            <h3 class="box-title">Hover Data Table</h3>
+            <h3 class="box-title">TableTest 1</h3>
             <div class="pull-right">
-              <button class="btn btn-primary btn-sm fa fa-plus" data-toggle="modal" data-target="#tableModal"> 新增</button>
+              <button class="btn btn-primary btn-sm fa fa-plus" data-toggle="modal" data-target="#tableModal" @click="getAllData"> 新增</button>
             </div>
           </div>
           <!-- /.box-header -->
@@ -25,16 +22,16 @@
               </tr>
               </thead>
               <tbody style="height:100%;">
-                <tr v-for="(item,index) in tableData">
-                  <td>{{item.code}}</td>
-                  <td>{{item.name}}</td>
-                  <td>{{item.isTop==='1'?'一级':'二级'}}</td>
-                  <td>{{item.remarks}}</td>
-                  <td>
-                    <button class="btn btn-primary btn-sm fa fa-edit" title="编辑" @click="edit(item)" data-toggle="modal" data-target="#tableModal2"></button>
-                    <button class="btn btn-danger btn-sm fa fa-bitbucket" title="删除" @click="del(item.businessId)"></button>
-                  </td>
-                </tr>
+              <tr v-for="(item,index) in tableData">
+                <td>{{item.code}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.isTop==='1'?'一级':'二级'}}</td>
+                <td>{{item.remarks}}</td>
+                <td>
+                  <a class="btn btn-primary btn-sm fa fa-edit" title="编辑" @click="edit(item)" data-toggle="modal" data-target="#tableModal2"></a>
+                  <a class="btn btn-danger btn-sm fa fa-bitbucket" title="删除" @click="del(item.businessId)"></a>
+                </td>
+              </tr>
               </tbody>
             </table>
 
@@ -230,7 +227,6 @@
           sort:''
         },
         levelParent:[], //父级
-        tableLoading:false,
         pages:'', //分页
         pageNu:1,
         pageSize:10
@@ -239,29 +235,68 @@
     methods:{
       //获取数据
       getData(){
-        this.tableLoading = true;
+        const loading = this.$loading({
+          lock: true,
+          text: '正在读取数据...',
+          spinner: 'el-icon-loading',
+          background: 'rgba(255,255,255, 0.5)',
+        });
         this.adminUtil.ajaxGetUtil('bgoodstype/queryBGoodsTypeByPaginationWithoutAuth',{
-          //params
+            //params
             rows:this.pageSize,
             page:this.pageNu
           },res=>{
             this.tableData = res.rows;
-            this.tableLoading = false;
+            this.pages = res.pages;
+            loading.close();
+          },err=>{
+            loading.close();
+            this.$notify.error({
+              title:'错误',
+              message:'网络错误',
+              duration:2000
+            });
+          }
+        )
+      },
+      //获取全部数据
+      getAllData(){
+        const loading = this.$loading({
+          lock: true,
+          text: '正在读取数据...',
+          spinner: 'el-icon-loading',
+          background: 'rgba(255,255,255, 0.5)',
+        });
+        this.adminUtil.ajaxGetUtil('bgoodstype/queryBGoodsTypeByPaginationWithoutAuth',{
+            //params
+            rows:999,
+            page:this.pageNu
+          },res=>{
             this.levelParent = [];
             for (let i=0;i<res.rows.length;i++){
               if (res.rows[i].isTop ==="1"){
                 this.levelParent.push(res.rows[i]);
               }
             }
-            this.pages = res.pages;
+            loading.close();
           },err=>{
-            alert('网络错误!');
-            this.tableLoading = false;
+            loading.close();
+            this.$notify.error({
+              title:'错误',
+              message:'网络错误',
+              duration:2000
+            });
           }
         )
       },
       //新增
       add(){
+        const loading = this.$loading({
+          lock: true,
+          text: '正在保存...',
+          spinner: 'el-icon-loading',
+          background: 'rgba(255,255,255, 0.5)',
+        });
         this.adminUtil.ajaxPostUtil('bgoodstype/add',{
           businessId:this.tableForm.businessId,
           code:this.tableForm.code,
@@ -271,30 +306,65 @@
           remarks:this.tableForm.remarks
         },res=>{
           if (res.code===200){
-            alert('操作成功!');
+            loading.close();
+            this.$notify.success({
+              title:'提示',
+              message:res.message,
+              duration:2000
+            });
             //清空表单
             this.resetForm();
             $('#tableModal').modal('hide');
             this.getData();
+          }else{
+            loading.close();
+            this.$notify.warning({
+              title:'警告',
+              message:'保存失败',
+              duration:2000
+            });
           }
         },err=>{
-          console.log(err);
+          loading.close();
+          this.$notify.error({
+            title:'错误',
+            message:'网络错误',
+            duration:2000
+          });
         })
       },
       //删除
       del(id){
-        let _this = this;
+        const loading = this.$loading({
+          lock: true,
+          text: '正在删除...',
+          spinner: 'el-icon-loading',
+          background: 'rgba(255,255,255, 0.5)',
+        });
         this.adminUtil.ajaxDeleteUtil('bgoodstype/delete'+'/'+id,{
           // params
         },res=>{
           if (res.code===200){
-            alert('删除成功!');
-            _this.getData();
+            loading.close();
+            this.$notify.success({
+              title:'提示',
+              message:res.message,
+              duration:2000
+            });
+            this.getData();
           }else{
-            alert('删除失败!');
+            this.$notify.warning({
+              title:'警告',
+              message:'删除失败',
+              duration:2000
+            });
           }
         },err=>{
-          alert('网络错误!');
+          this.$notify.error({
+            title:'错误',
+            message:'网络错误',
+            duration:2000
+          });
         })
       },
       //修改
@@ -308,6 +378,12 @@
         this.tableForm.remarks = item.remarks;
       },
       modify(){
+        const loading = this.$loading({
+          lock: true,
+          text: '正在保存...',
+          spinner: 'el-icon-loading',
+          background: 'rgba(255,255,255, 0.5)',
+        });
         this.adminUtil.ajaxPutUtil('bgoodstype/update/'+this.tableForm.businessId,{
           businessId:this.tableForm.businessId,
           code:this.tableForm.code,
@@ -316,16 +392,29 @@
           parentId:this.tableForm.parent,
           remarks:this.tableForm.remarks
         },res=>{
+          loading.close();
           if (res.code===200){
-            alert('修改成功!');
+            this.$notify.success({
+              title:'提示',
+              message:'保存成功',
+              duration:2000
+            });
             this.getData();
             $('#tableModal2').modal('hide');
             this.resetForm();
           }else{
-            alert('修改失败!');
+            this.$notify.warning({
+              title:'警告',
+              message:'保存失败',
+              duration:2000
+            });
           }
         },err=>{
-          alert('网络错误!');
+          this.$notify.error({
+            title:'错误',
+            message:'网络错误',
+            duration:2000
+          });
         });
       },
       //表单重置
@@ -367,7 +456,6 @@
 
 <style>
   #tableTest{height:calc(100% - 30px);}
-  #tableTest tbody{min-height:300px;}
   .odd{display:none;}
   .example-modal .modal {
     position: relative;
@@ -382,7 +470,7 @@
     background: transparent !important;
   }
   #tableTest>.row {
-    height: 100%;
+    height: calc(100% - 50px);
   }
   #example2_wrapper>.row:nth-child(2){height:calc(100% - 100px);}
   .adminAlert{

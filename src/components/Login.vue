@@ -34,13 +34,13 @@
           </div>
           <!-- /.box-body -->
           <div class="box-footer" v-show="isLogining===false">
-            <button type="submit" class="btn btn-info pull-right" @click="login">登 录</button>
-            <button type="reset" class="btn btn-default pull-right" style="margin-right:20px">重置</button>
+            <a class="btn btn-info pull-right" @click="login">登 录</a>
+            <a class="btn btn-default pull-right" style="margin-right:20px">重置</a>
           </div>
 
           <div class="box-footer box-footer-loading" v-show="isLogining===true">
-            <button type="submit" class="btn btn-info pull-right" disabled @click="login"><i class="fa fa-spinner fa-pulse"></i> 登录中</button>
-            <button type="reset" class="btn btn-default pull-right disabled" disabled style="margin-right:20px">重置</button>
+            <a class="btn btn-info pull-right" disabled @click="login"><i class="fa fa-spinner fa-pulse"></i> 登录中</a>
+            <a class="btn btn-default pull-right disabled" disabled style="margin-right:20px">重置</a>
           </div>
           <!-- /.box-footer -->
         </form>
@@ -68,7 +68,7 @@
           formData.append('password',this.password);
           formData.append('userType',"1");
           this.axios.post(
-            this.globalUrl+'auth/login',formData,{
+            this.preUrl.interfaceUrl+'auth/login',formData,{
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
               }
@@ -79,18 +79,34 @@
               sessionStorage.setItem("token",token);
               sessionStorage.setItem("user",this.username);
               this.isLogining = false;
-              alert('登录成功!');
+              this.$notify.success({
+                title:'提示',
+                message:'登录成功!',
+                duration:2000
+              });
               this.$router.push({'path':'/'});
             }else{
-              alert('用户名或密码不正确!');
               this.isLogining = false;
+              this.$notify.warning({
+                title:'警告',
+                message:'用户名或密码不正确!',
+                duration:2000
+              });
             }
           }).catch((err)=>{
-            console.log(err);
             this.isLogining = false;
+            this.$notify.error({
+              title:'错误',
+              message:'网络错误',
+              duration:2000
+            });
           })
         }else{
-          alert('用户名与密码不能为空!');
+          this.$notify.warning({
+            title:'警告',
+            message:'用户名和密码不能为空!',
+            duration:2000
+          });
         }
       }
     }

@@ -232,4 +232,5 @@
     overflow:auto;
   }
   .content-wrapper{margin:0;}
+  .sidebar-menu>li{cursor:pointer;}
 </style>

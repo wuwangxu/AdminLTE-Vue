@@ -202,7 +202,7 @@
           spinner: 'el-icon-loading',
           background: 'rgba(255,255,255, 0.5)',
         });
-        this.adminUtil.ajaxPostUtil('bgoods/add',{
+        this.adminUtil.ajaxPutUtil('bgoods/update/'+this.$route.params.id,{
           businessId:this.$route.params.id,
           code:this.table2Form.code,
           name:this.table2Form.name,
@@ -212,14 +212,20 @@
           remarks:this.table2Form.remarks
         },res=>{
           if (res.code===200){
-            this.formReset();
-            this.$emit('table2DetailEvent',2);
-            this.$notify({
-              title: '提示信息',
-              message: res.message,
-              type: 'success'
-            });
             loading.close();
+            this.$emit('table2DetailEvent',2);
+            this.$confirm('保存成功,是否关闭当前窗口?', '提示', {
+              confirmButtonText: '是',
+              cancelButtonText: '否',
+              type: 'warning'
+            }).then(() => {
+              this.formReset();
+              this.$router.push({
+                'path':'/Table2'
+              })
+            }).catch(() => {
+              //不进行操作
+            });
           }else{
             this.$notify({
               title: '警告',

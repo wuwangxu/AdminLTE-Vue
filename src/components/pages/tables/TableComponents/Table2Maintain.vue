@@ -11,7 +11,7 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body" style="height:100%;">
-            <table id="example2" class="table table-bordered table-hover" style="height:calc(100% - 100px)">
+            <table id="example2" class="table table-bordered table-hover">
               <thead>
               <tr>
                 <th>编号</th>
@@ -22,9 +22,10 @@
                 <th>目标人民币</th>
                 <th>是否推荐</th>
                 <th>备注</th>
+                <th>操作</th>
               </tr>
               </thead>
-              <tbody style="height:100%;">
+              <tbody>
                 <span v-show="tableData.length === 0">暂无内容</span>
                 <tr v-for="(item,index) in tableData">
                   <td>{{item.code}}</td>
@@ -35,6 +36,10 @@
                   <td>{{item.priceDrmb}}</td>
                   <td>{{item.isTj==='1'?'是':'否'}}</td>
                   <td>{{item.remarks}}</td>
+                  <td>
+                    <a class="btn btn-primary btn-sm fa fa-edit" title="编辑" @click="edit(item.businessId)"></a>
+                    <a class="btn btn-danger btn-sm fa fa-bitbucket" title="删除" @click="del(item.businessId)"></a>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -93,27 +98,74 @@
             //params
             rows:this.pageSize,
             page:this.pageNu,
-            goodsId:1
+            goodsId:this.$route.params.id
           },res=>{
             this.tableData = res.rows;
             this.pages = res.pages;
+            loading.close();
           },err=>{
             this.$notify.error({
               title:'错误',
               message:'网络错误',
               duration:2000
             });
+            loading.close();
           }
         );
-        loading.close();
       },
       //新增
       add(){
         this.$router.push({
           name:"Table2MaintainAdd",
           params:{
-            id:this.$route.params.id
+            id:this.$route.params.id,
+            type:'Add'
           }
+        });
+      },
+      //编辑
+      edit(id){
+        this.$router.push({
+          name:"Table2MaintainAdd",
+          params:{
+            id:this.$route.params.id,
+            goodsId:id,
+            type:'Edit'
+          }
+        });
+      },
+      del(id){
+        this.$confirm('是否确认删除?', '提示', {
+          confirmButtonText: '是',
+          cancelButtonText: '否',
+          type: 'warning'
+        }).then(() => {
+          this.adminUtil.ajaxDeleteUtil('bgoodsitem/delete/'+id, {
+            //无参数
+          },res=>{
+            if (res.code===200){
+              this.$notify.success({
+                title:'提示',
+                message:res.message,
+                duration:2000
+              });
+              this.getData();
+            }else{
+              this.$notify.warning({
+                title:'警告',
+                message:'删除失败!',
+                duration:2000
+              });
+            }
+          },err=>{
+            this.$notify.error({
+              title:'错误',
+              message:'网络错误',
+              duration:2000
+            });
+          });
+        }).catch(() => {
+          //不进行操作
         });
       },
       //切换

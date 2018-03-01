@@ -54,7 +54,7 @@ const router = new Router({
           component:resolve => require(['../components/pages/tables/TableComponents/Table2Maintain'], resolve)
         },
         {
-          path: '/Table2/maintain/:id/Add',
+          path: '/Table2/maintain/:id/:goodsId?/:type?',
           name: 'Table2MaintainAdd',
           component:resolve => require(['../components/pages/tables/TableComponents/Table2MaintainAdd'], resolve)
         },

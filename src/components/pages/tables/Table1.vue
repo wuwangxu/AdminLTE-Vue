@@ -31,8 +31,8 @@
                 <td>{{item.isTop==='1'?'一级':'二级'}}</td>
                 <td>{{item.remarks}}</td>
                 <td>
-                  <button class="btn btn-primary btn-sm fa fa-edit" title="编辑" @click="edit(item)" data-toggle="modal" data-target="#tableModal2"></button>
-                  <button class="btn btn-danger btn-sm fa fa-bitbucket" title="删除" @click="del(item.businessId)"></button>
+                  <a class="btn btn-primary btn-sm fa fa-edit" title="编辑" @click="edit(item)" data-toggle="modal" data-target="#tableModal2"></a>
+                  <a class="btn btn-danger btn-sm fa fa-bitbucket" title="删除" @click="del(item.businessId)"></a>
                 </td>
               </tr>
               </tbody>

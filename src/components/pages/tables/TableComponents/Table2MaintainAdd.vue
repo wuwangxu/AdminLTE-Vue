@@ -182,6 +182,7 @@
             goodsId:this.$route.params.id
           },res=>{
             if (res.code===200){
+              loading.close();
               this.formReset();
               this.$confirm('保存成功!是否继续添加?', '提示', {
                 confirmButtonText: '继续',
@@ -190,7 +191,6 @@
               }).then(() => {
                 //继续
               }).catch(() => {
-                loading.close();
                 this.$router.push({
                   name:'Table2Maintain',
                   params:{

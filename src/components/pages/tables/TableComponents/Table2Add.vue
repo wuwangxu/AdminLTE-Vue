@@ -94,6 +94,7 @@
       }
     },
     methods:{
+      getData(){},
       //获取全部数据
       getAllData(){
         this.adminUtil.ajaxGetUtil('bgoodstype/queryBGoodsTypeByPaginationWithoutAuth',{

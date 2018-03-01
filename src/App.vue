@@ -28,4 +28,20 @@ export default {
   }
   #app button{outline:none;}
   #app button{border-color:transparent;}
+  #app table{
+    width:100%;
+    table-layout:fixed;
+  }
+  #app table tbody{
+    width:100%;
+  }
+  #app td{
+    width: 175px !important;
+    height: 40px !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding:0 5px;
+    vertical-align:middle;
+  }
 </style>

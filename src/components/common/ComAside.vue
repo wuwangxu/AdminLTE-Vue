@@ -14,7 +14,7 @@
         </div>
       </div>
       <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
+      <form action="" method="get" class="sidebar-form">
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Search...">
           <span class="input-group-btn">
@@ -24,7 +24,7 @@
         </div>
       </form>
       <!-- 导航 -->
-      <ul class="sidebar-menu" data-widget="tree">
+      <ul class="sidebar-menu">
         <li class="header">导航</li>
         <li class="active treeview">
           <router-link to="/">
@@ -53,12 +53,32 @@
 <script>
   export default {
     name: "com-aside",
-    mounted(){
+    data(){
+      return {
 
+      }
+    },
+    methods: {
+
+    },
+    mounted(){
+      //导航
+      $('.treeview').click(function(){
+        $(this).children('.treeview-menu').slideToggle();
+      });
+
+      $('.treeview-menu').click(function(e){
+        e.stopPropagation();
+      })
     }
   }
 </script>
 
 <style>
-
+  .main-sidebar{
+    user-select:none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+  }
 </style>

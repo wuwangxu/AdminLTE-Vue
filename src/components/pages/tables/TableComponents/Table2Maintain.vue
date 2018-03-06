@@ -98,7 +98,8 @@
             //params
             rows:this.pageSize,
             page:this.pageNu,
-            goodsId:this.$route.params.id
+            goodsId:this.$route.params.id,
+            sort:'seq'
           },res=>{
             this.tableData = res.rows;
             this.pages = res.pages;

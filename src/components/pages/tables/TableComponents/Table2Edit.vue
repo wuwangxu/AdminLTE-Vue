@@ -1,5 +1,5 @@
 <template>
-  <div id="tableTest2" class="content-wrapper container" style="min-height:auto">
+  <div id="tableTest2" class="content-wrapper" style="min-height:auto">
     <div class="row">
       <div class="col-md-6">
         <!-- Horizontal Form -->
@@ -29,6 +29,12 @@
                   <select class="form-control" v-model="table2Form.typeId">
                     <option v-for="(item,index) in typeName" :value="item.businessId">{{item.name}}</option>
                   </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="sort" class="col-sm-2 control-label">排序</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="sort" placeholder="请输入排序号" v-model="table2Form.seq">
                 </div>
               </div>
               <div class="form-group">
@@ -88,7 +94,8 @@
           typeId:'',
           isTj:"1",
           remarks:'',
-          image:''
+          image:'',
+          seq:''
         },
         typeName:[], //所有的类型名称
         imageUrl:''
@@ -116,6 +123,7 @@
             f.isTj = r.isTj;
             f.remarks = r.remarks;
             f.image = r.imageUrl;
+            f.seq = r.seq;
             this.imageUrl = this.preUrl.assetsUrl+r.imageUrl;
             loading.close();
           }else{
@@ -209,23 +217,20 @@
           typeId:this.table2Form.typeId,
           isTj:this.table2Form.isTj,
           imageUrl:this.table2Form.image,
-          remarks:this.table2Form.remarks
+          remarks:this.table2Form.remarks,
+          seq:this.table2Form.seq
         },res=>{
           if (res.code===200){
             loading.close();
-            this.$emit('table2DetailEvent',2);
-            this.$confirm('保存成功,是否关闭当前窗口?', '提示', {
-              confirmButtonText: '是',
-              cancelButtonText: '否',
-              type: 'warning'
-            }).then(() => {
-              this.formReset();
-              this.$router.push({
-                'path':'/Table2'
-              })
-            }).catch(() => {
-              //不进行操作
+            this.$notify.success({
+              title: '提示',
+              message: '保存成功!'
             });
+            this.$emit('table2DetailEvent',2);
+            this.formReset();
+            this.$router.push({
+              'path':'/Table2'
+            })
           }else{
             this.$notify({
               title: '警告',
@@ -235,11 +240,11 @@
             loading.close();
           }
         },err=>{
+          loading.close();
           this.$notify.error({
             title: '错误',
             message: '网络错误',
           });
-          loading.close();
         })
       },
       //取消
@@ -258,6 +263,7 @@
         f.isTj = 1;
         f.remarks = '';
         f.iamge = '';
+        f.seq = '';
         this.typeName = [];
       }
     },

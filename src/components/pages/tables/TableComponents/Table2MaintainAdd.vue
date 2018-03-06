@@ -4,7 +4,7 @@
  *
  -->
 <template>
-  <div id="tableTest2" class="content-wrapper container" style="min-height:auto">
+  <div id="tableTest2" style="min-height:auto">
     <div class="row">
       <div class="col-md-6">
         <!-- Horizontal Form -->
@@ -53,6 +53,12 @@
                 </div>
               </div>
               <div class="form-group">
+                <label for="sort" class="col-sm-3 control-label">排序</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="sort" placeholder="请输入排序号" v-model="table2Form.seq">
+                </div>
+              </div>
+              <div class="form-group">
                 <label class="col-sm-3 control-label">推荐</label>
                 <div class="col-sm-9 radio">
                   <label>
@@ -97,6 +103,7 @@
           drmb:'',
           isTj:'1',
           remarks:'',
+          seq:''
         },
         viewType:''
       }
@@ -140,6 +147,7 @@
               t.drmb = r.priceDrmb;
               t.isTj = r.isTj;
               t.remarks = r.remarks;
+              t.seq = r.seq;
             }
           }else{
             this.$notify.warning({
@@ -179,24 +187,21 @@
             priceDrmb:t.drmb,
             isTj:t.isTj,
             remarks:t.remarks,
-            goodsId:this.$route.params.id
+            goodsId:this.$route.params.id,
+            seq:t.seq
           },res=>{
             if (res.code===200){
               loading.close();
+              this.$notify.success({
+                title: '提示',
+                message: '保存成功!'
+              });
               this.formReset();
-              this.$confirm('保存成功!是否继续添加?', '提示', {
-                confirmButtonText: '继续',
-                cancelButtonText: '返回',
-                type: 'success'
-              }).then(() => {
-                //继续
-              }).catch(() => {
-                this.$router.push({
-                  name:'Table2Maintain',
-                  params:{
-                    id:this.$route.params.id
-                  }
-                });
+              this.$router.push({
+                name:'Table2Maintain',
+                params:{
+                  id:this.$route.params.id
+                }
               });
             }else{
               loading.close();
@@ -224,24 +229,21 @@
             priceDdollar:t.ddollar,
             priceDrmb:t.drmb,
             isTj:t.isTj,
-            remarks:t.remarks
+            remarks:t.remarks,
+            seq:t.seq
           },res=>{
             if (res.code===200){
               loading.close();
-              this.$confirm('保存成功!是否继续修改?', '提示', {
-                confirmButtonText: '是',
-                cancelButtonText: '否',
-                type: 'success'
-              }).then(() => {
-                //继续
-              }).catch(() => {
-                this.formReset();
-                this.$router.push({
-                  name:'Table2Maintain',
-                  params:{
-                    id:this.$route.params.id
-                  }
-                });
+              this.$notify.success({
+                title: '提示',
+                message: '保存成功!'
+              });
+              this.formReset();
+              this.$router.push({
+                name:'Table2Maintain',
+                params:{
+                  id:this.$route.params.id
+                }
               });
             }else{
               loading.close();
@@ -280,7 +282,8 @@
         f.ddollar = '';
         f.drmb = '';
         f.isTj = '1';
-        f.remarks = ''
+        f.remarks = '';
+        f.seq = '';
       }
     },
     beforeMount(){

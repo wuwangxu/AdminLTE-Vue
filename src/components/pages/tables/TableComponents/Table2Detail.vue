@@ -102,7 +102,7 @@
             //params
             rows:this.pageSize,
             page:this.pageNu,
-            sort:'seq'
+            sort:'type_id desc,seq desc,code desc'
           },res=>{
             this.tableData = res.rows;
             this.tableLoading = false;

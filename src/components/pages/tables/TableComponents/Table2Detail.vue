@@ -3,9 +3,6 @@
     <div class="row">
       <div class="col-xs-12" style="height:100%">
         <div class="box" style="height:100%">
-          <div class="overlay" v-show="tableLoading === true">
-            <i class="fa fa-spinner fa-pulse"></i>
-          </div>
           <div class="box-header">
             <h3 class="box-title">TableTest 2</h3>
             <div class="pull-right">
@@ -87,7 +84,6 @@
           sort:''
         },
         typeName:[], //父级
-        tableLoading:false,
         pages:'', //分页
         pageNu:1,
         pageSize:10
@@ -96,21 +92,28 @@
     methods:{
       //获取数据
       getData(){
-        this.tableLoading = true;
+        const loading = this.$loading({
+          lock: true,
+          text: '正在读取数据...',
+          spinner: 'el-icon-loading',
+          background: 'rgba(255,255,255, 0.5)',
+        });
         this.adminUtil.ajaxGetUtil('bgoods/queryBGoodsByPaginationWithoutAuth',{
             //params
             rows:this.pageSize,
-            page:this.pageNu
+            page:this.pageNu,
+            sort:'seq'
           },res=>{
             this.tableData = res.rows;
             this.tableLoading = false;
             this.pages = res.pages;
+            loading.close();
           },err=>{
+            loading.close();
             this.$notify.error({
               title: '错误',
               message: '网络错误!'
             });
-            this.tableLoading = false;
           }
         )
       },

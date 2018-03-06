@@ -51,6 +51,12 @@
                 </div>
               </div>
               <div class="form-group">
+                <label for="sort" class="col-sm-2 control-label">排序</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="sort" placeholder="请输入排序号" v-model="table2Form.seq">
+                </div>
+              </div>
+              <div class="form-group">
                 <label class="col-sm-2 control-label">备注</label>
                 <div class="col-sm-10">
                   <textarea class="form-control" rows="3" placeholder="请输入备注" v-model="table2Form.remarks"></textarea>
@@ -87,7 +93,8 @@
           typeId:'',
           isTj:1,
           remarks:'',
-          image:''
+          image:'',
+          seq:''
         },
         typeName:[], //所有的类型名称
         imageUrl:''
@@ -158,24 +165,21 @@
         });
         this.adminUtil.ajaxPostUtil('bgoods/add',{
           code:this.table2Form.code,
-          name:this.table2Form.code,
+          name:this.table2Form.name,
           typeId:this.table2Form.typeId,
           isTj:this.table2Form.isTj,
           imageUrl:this.table2Form.image,
-          remarks:this.table2Form.remarks
+          remarks:this.table2Form.remarks,
+          seq:this.table2Form.seq
         },res=>{
           if (res.code===200){
             loading.close();
-            this.$confirm('保存成功!是否继续新增?', '提示', {
-              confirmButtonText: '是',
-              cancelButtonText: '否',
-              type: 'success'
-            }).then(() => {
-              this.formReset();
-            }).catch(() => {
-              this.formReset();
-              this.$emit('table2DetailEvent',2);
+            this.$notify.success({
+              title: '提示',
+              message: '保存成功!',
             });
+            this.formReset();
+            this.$emit('table2DetailEvent',2);
           }else{
             loading.close();
             this.$notify({

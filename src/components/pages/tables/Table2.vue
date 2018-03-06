@@ -52,7 +52,7 @@
 </script>
 
 <style>
-  #tableTest2{height:calc(100% - 30px);}
+  #tableTest2{height:calc(100% - 20px);}
   #tableTest2 tbody{min-height:300px;}
   .odd{display:none;}
   .example-modal .modal {

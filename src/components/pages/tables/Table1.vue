@@ -112,7 +112,7 @@
                   <div class="form-group">
                     <label for="sort" class="col-sm-2 control-label">排序</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="sort" placeholder="请输入排序号" v-model="tableForm.sort">
+                      <input type="text" class="form-control" id="sort" placeholder="请输入排序号" v-model="tableForm.seq">
                     </div>
                   </div>
                   <div class="form-group">
@@ -185,7 +185,7 @@
                   <div class="form-group">
                     <label for="sort2" class="col-sm-2 control-label">排序</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="sort2" placeholder="请输入排序号" v-model="tableForm.sort">
+                      <input type="text" class="form-control" id="sort2" placeholder="请输入排序号" v-model="tableForm.seq">
                     </div>
                   </div>
                   <div class="form-group">
@@ -244,7 +244,8 @@
         this.adminUtil.ajaxGetUtil('bgoodstype/queryBGoodsTypeByPaginationWithoutAuth',{
             //params
             rows:this.pageSize,
-            page:this.pageNu
+            page:this.pageNu,
+            sort:'seq'
           },res=>{
             this.tableData = res.rows;
             this.pages = res.pages;
@@ -303,7 +304,8 @@
           name:this.tableForm.name,
           isTop:this.tableForm.isTop,
           parentId:this.tableForm.parent,
-          remarks:this.tableForm.remarks
+          remarks:this.tableForm.remarks,
+          seq:this.tableForm.seq
         },res=>{
           if (res.code===200){
             loading.close();
@@ -373,9 +375,12 @@
         this.tableForm.code = item.code;
         this.tableForm.name = item.name;
         this.tableForm.isTop = item.isTop;
-        this.tableForm.sort = item.seq;
+        this.tableForm.seq = item.seq;
         this.tableForm.parent = item.parentId;
         this.tableForm.remarks = item.remarks;
+
+
+        console.log(item);
       },
       modify(){
         const loading = this.$loading({
@@ -390,7 +395,8 @@
           name:this.tableForm.name,
           isTop:this.tableForm.isTop,
           parentId:this.tableForm.parent,
-          remarks:this.tableForm.remarks
+          remarks:this.tableForm.remarks,
+          seq:this.tableForm.seq
         },res=>{
           loading.close();
           if (res.code===200){
@@ -425,7 +431,7 @@
         this.tableForm.isTop = '1';
         this.tableForm.parent = '';
         this.tableForm.remarks = '';
-        this.tableForm.sort = '';
+        this.tableForm.seq = '';
       },
       //切换
       toggleTabs(index){

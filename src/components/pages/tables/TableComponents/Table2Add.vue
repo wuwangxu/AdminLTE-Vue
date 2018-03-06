@@ -1,5 +1,5 @@
 <template>
-  <div id="tableTest2" class="content-wrapper container" style="min-height:auto">
+  <div id="tableTest2" style="min-height:auto">
     <div class="row">
       <div class="col-md-6">
         <!-- Horizontal Form -->

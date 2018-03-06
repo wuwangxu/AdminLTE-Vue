@@ -1,5 +1,5 @@
 <template>
-  <div id="tableTest2" class="content-wrapper" style="min-height:auto">
+  <div id="tableTest2" style="min-height:auto">
     <div class="row">
       <div class="col-xs-12" style="height:100%">
         <div class="box" style="height:100%">
@@ -220,7 +220,7 @@
 </script>
 
 <style>
-  #tableTest2{height:calc(100% - 30px);}
+  #tableTest2{height:calc(100% - 20px);}
   #tableTest2 tbody{min-height:300px;}
   .odd{display:none;}
   .example-modal .modal {

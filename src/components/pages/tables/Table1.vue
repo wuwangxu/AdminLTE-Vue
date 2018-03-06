@@ -1,5 +1,5 @@
 <template>
-  <div id="tableTest" class="content-wrapper" style="min-height:auto">
+  <div id="tableTest" style="min-height:auto">
     <div class="row">
       <div class="col-xs-12" style="height:100%">
         <div class="box" style="height:100%">

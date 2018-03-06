@@ -1,12 +1,12 @@
 <template>
-  <div class="wrapper">
+  <div>
     <!-- 公共头 -->
     <com-header></com-header>
     <!-- 公共侧边栏(导航) -->
     <com-aside></com-aside>
     <!-- 公共视图窗口 -->
-    <div class="com-view">
-      <router-view></router-view>
+    <div class="com-view content-wrapper">
+      <router-view class="content"></router-view>
     </div>
     <!-- 公共尾 -->
     <!--<com-footer></com-footer>-->
@@ -222,15 +222,14 @@
 
 <style>
   .com-view{
-    position:absolute;
-    top:50px;
-    left:230px;
-    width:calc(100% - 230px);
-    height:calc(100% - 50px);
+    /*position:absolute;*/
+    /*top:50px;*/
+    /*left:230px;*/
+    /*width:calc(100% - 230px);*/
+    /*height:calc(100% - 50px);*/
     background:#ECF0F5;
-    padding:20px;
+    /*padding:20px;*/
     overflow:auto;
   }
-  .content-wrapper{margin:0;}
   .sidebar-menu>li{cursor:pointer;}
 </style>

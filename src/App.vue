@@ -21,7 +21,7 @@ export default {
   }
   #app{
     width:100%;
-    height:100%;
+    height:100% !important;
     background:#ECF0F5;
   }
   h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{

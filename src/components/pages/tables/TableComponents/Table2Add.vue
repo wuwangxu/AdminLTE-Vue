@@ -106,7 +106,7 @@
         this.adminUtil.ajaxGetUtil('bgoodstype/queryBGoodsTypeByPaginationWithoutAuth',{
             //params
             rows:999,
-            page:this.pageNu
+            page:1
           },res=>{
             this.typeName = [];
             for (let i=0;i<res.rows.length;i++){

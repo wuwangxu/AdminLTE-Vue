@@ -456,6 +456,7 @@
     mounted(){
       //获取数据
       this.getData();
+      this.getAllData();
     }
   }
 </script>

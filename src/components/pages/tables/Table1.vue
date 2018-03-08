@@ -229,7 +229,7 @@
         levelParent:[], //父级
         pages:'', //分页
         pageNu:1,
-        pageSize:10
+        pageSize:20
       }
     },
     methods:{
@@ -245,7 +245,7 @@
             //params
             rows:this.pageSize,
             page:this.pageNu,
-            sort:'seq'
+            sort:'is_top desc,code desc'
           },res=>{
             this.tableData = res.rows;
             this.pages = res.pages;

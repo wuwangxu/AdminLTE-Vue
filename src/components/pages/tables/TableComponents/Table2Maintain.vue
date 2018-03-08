@@ -82,7 +82,7 @@
         tableData:[],  //数据
         pages:'', //分页
         pageNu:1,
-        pageSize:10
+        pageSize:20
       }
     },
     methods:{

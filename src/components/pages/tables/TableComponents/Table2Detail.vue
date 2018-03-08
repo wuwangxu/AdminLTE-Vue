@@ -93,7 +93,7 @@
         typeName:[], //父级
         pages:'', //分页
         pageNu:1,
-        pageSize:10,
+        pageSize:20,
         searchByName:'',
         searchTypeOptions:[
           {

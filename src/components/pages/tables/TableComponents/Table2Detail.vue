@@ -11,6 +11,13 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body" style="height:100%;">
+            <div class="box-search form">
+              <input type="text" class="form-control" placeholder="按名称搜索" v-model="searchByName">
+              <select name="selectByTypeName" id="selectByTypeName" class="form-control" v-model="searchByType">
+                <option v-for="item in searchTypeOptions" :value="item.businessId">{{item.name}}</option>
+              </select>
+              <input type="button" value="搜 索" class="btn btn-primary btn-sm" @click="getData">
+            </div>
             <table id="example2" class="table table-bordered table-hover" style="">
               <thead>
               <tr>
@@ -86,7 +93,15 @@
         typeName:[], //父级
         pages:'', //分页
         pageNu:1,
-        pageSize:10
+        pageSize:10,
+        searchByName:'',
+        searchTypeOptions:[
+          {
+            businessId:'',
+            name:'---按类型搜索---'
+          }
+        ],
+        searchByType:''
       }
     },
     methods:{
@@ -102,7 +117,9 @@
             //params
             rows:this.pageSize,
             page:this.pageNu,
-            sort:'code desc'
+            sort:'code desc',
+            name:this.searchByName,
+            typeId:this.searchByType
           },res=>{
             this.tableData = res.rows;
             this.tableLoading = false;
@@ -113,6 +130,33 @@
             this.$notify.error({
               title: '错误',
               message: '网络错误!'
+            });
+          }
+        )
+      },
+      //获取全部数据
+      getAllData(){
+        this.adminUtil.ajaxGetUtil('bgoodstype/queryBGoodsTypeByPaginationWithoutAuth',{
+            //params
+            rows:999,
+            page:1
+          },res=>{
+            //重置 防止重复
+            this.searchTypeOptions = [
+              {
+                businessId:'',
+                name:'---按类型搜索---'
+              }
+            ];
+            for (let i=0;i<res.rows.length;i++){
+              if (res.rows[i].isTop ==="0"){
+                this.searchTypeOptions.push(res.rows[i]);
+              }
+            }
+          },err=>{
+            this.$notify.error({
+              title: '错误',
+              message: '网络错误',
             });
           }
         )
@@ -215,6 +259,7 @@
     mounted(){
       //获取数据
       this.getData();
+      this.getAllData();
     }
   }
 </script>
@@ -248,4 +293,16 @@
   .nav-pageing{
     cursor:pointer;
   }
+  .box-search input[type=text],.box-search select{
+    width:150px;
+    display:inline-block;
+    vertical-align:middle;
+  }
+  .box-search select{cursor:pointer}
+  .box-search input[type=button]{
+    display:inline-block;
+    vertical-align:top;
+    height:34px;
+  }
+  .box-search{margin-bottom:5px}
 </style>

@@ -318,6 +318,7 @@
             this.resetForm();
             $('#tableModal').modal('hide');
             this.getData();
+            this.getAllData();
           }else{
             loading.close();
             this.$notify.warning({
@@ -354,6 +355,7 @@
               duration:2000
             });
             this.getData();
+            this.getAllData();
           }else{
             this.$notify.warning({
               title:'警告',
@@ -378,9 +380,6 @@
         this.tableForm.seq = item.seq;
         this.tableForm.parent = item.parentId;
         this.tableForm.remarks = item.remarks;
-
-
-        console.log(item);
       },
       modify(){
         const loading = this.$loading({
@@ -406,6 +405,7 @@
               duration:2000
             });
             this.getData();
+            this.getAllData();
             $('#tableModal2').modal('hide');
             this.resetForm();
           }else{

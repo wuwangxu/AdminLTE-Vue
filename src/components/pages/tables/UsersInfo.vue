@@ -2,23 +2,22 @@
   <div id="tableTest2" style="min-height:auto">
     <div class="row">
       <div class="col-xs-12" style="height:100%">
-        <table2-detail
+        <users-info-detail
           v-show="currentView===1"
-          @table2DetailEvent="table2DetailEvent"
-          @showMsgFromChild="showMsgFromChild"
-          ref="table2Detail"></table2-detail>
-        <table2-add
+          @usersInfoDetailEvent="usersInfoDetailEvent"
+          ref="usersInfoDetail"></users-info-detail>
+        <users-info-add
           v-show="currentView===2"
-          ref="table2add"
-          @table2DetailEvent="table2DetailEvent"></table2-add>
+          ref="usersInfoAdd"
+          @usersInfoDetailEvent="usersInfoDetailEvent"></users-info-add>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import Table2Detail from '@/components/pages/tables/TableComponents/Table2Detail'
-  import Table2Add from '@/components/pages/tables/TableComponents/Table2Add'
+  import UsersInfoDetail from '@/components/pages/tables/TableComponents/UsersInfoDetail'
+  import UsersInfoAdd from '@/components/pages/tables/TableComponents/UsersInfoAdd'
   export default {
     name: "table-test",
     data(){
@@ -29,33 +28,27 @@
     },
     methods:{
       //处理子组件事件
-      table2DetailEvent(type){
+      usersInfoDetailEvent(type){
         switch(type){
           //新增按钮触发
           case 1:
             this.currentView = 2;
-            this.$refs.table2add.setTypeId();
-            this.$refs.table2add.getAllData();
             break;
           //新增完成
           case 2:
             this.currentView = 1;
-            this.$refs.table2Detail.getData();
+            this.$refs.usersInfoDetail.getData();
             break;
           //新增取消
           case 3:
             this.currentView = 1;
             break;
         }
-      },
-      showMsgFromChild(data){
-        this.searchByType=data;
-        console.log(this.searchByType);
       }
     },
     components:{
-      Table2Detail,
-      Table2Add
+      UsersInfoDetail,
+      UsersInfoAdd
     }
   }
 </script>

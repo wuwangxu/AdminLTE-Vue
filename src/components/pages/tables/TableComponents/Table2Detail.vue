@@ -95,13 +95,13 @@
         pageNu:1,
         pageSize:20,
         searchByName:'',
+        searchByType:sessionStorage.getItem("typeId")+"",
         searchTypeOptions:[
           {
             businessId:'',
             name:'---按类型搜索---'
           }
-        ],
-        searchByType:''
+        ]
       }
     },
     methods:{
@@ -124,6 +124,10 @@
             this.tableData = res.rows;
             this.tableLoading = false;
             this.pages = res.pages;
+            // this.$emit('showMsgFromChild',this.searchByType);
+          console.log(this.tableData);
+          console.log(this.searchByType)
+             sessionStorage.setItem("typeId",this.searchByType);
             loading.close();
           },err=>{
             loading.close();

@@ -12,56 +12,70 @@
           <form class="form-horizontal">
             <div class="box-body">
               <div class="form-group">
-                <label for="code" class="col-sm-2 control-label">编号</label>
+                <label for="loginName" class="col-sm-2 control-label">登录名</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="code" placeholder="请输入编号" v-model="table2Form.code">
+                  <input type="text" class="form-control" id="loginName" placeholder="请输入登录名" v-model="table2Form.loginName">
                 </div>
               </div>
               <div class="form-group">
-                <label for="name" class="col-sm-2 control-label">名称</label>
+                <label for="name" class="col-sm-2 control-label">姓名</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" id="name" placeholder="请输入名称" v-model="table2Form.name">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label">类型名称</label>
+                <label class="col-sm-2 control-label">性别</label>
                 <div class="col-sm-10">
-                  <select class="form-control" v-model="table2Form.typeId">
-                    <option v-for="(item,index) in typeName" :value="item.businessId">{{item.name}}</option>
+                  <select class="form-control" v-model="table2Form.sex">
+                    <option disabled="disabled" selected="selected" value="">请选择您的性别</option>
+                    <option v-for="(item,index) in sexName" :value="item.sexId">{{item.sexName}}</option>
                   </select>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label">推荐</label>
-                <div class="col-sm-10 radio">
-                  <label>
-                    <input type="radio" name="optionsRadios" v-model="table2Form.isTj" value="1">是
-                  </label>
-                  <label style="margin-left:1rem">
-                    <input type="radio" name="optionsRadios" v-model="table2Form.isTj" value="0">否
-                  </label>
+                <label for="phone" class="col-sm-2 control-label">联系电话</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="phone" placeholder="请输入手机号" v-model="table2Form.phone">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label">图片</label>
+                <label for="email" class="col-sm-2 control-label">邮箱</label>
                 <div class="col-sm-10">
-                  <label>
-                    <input type="file" value="上传图片" @change="pushimage" ref="file" id="image">
-                  </label>
+                  <input type="text" class="form-control" id="email" placeholder="请输入邮箱" v-model="table2Form.email">
                 </div>
               </div>
               <div class="form-group">
-                <label for="sort" class="col-sm-2 control-label">排序</label>
+                <label for="weixinName" class="col-sm-2 control-label">微信号</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="sort" placeholder="请输入排序号" v-model="table2Form.seq">
+                  <input type="text" class="form-control" id="weixinName" placeholder="请输入微信号" v-model="table2Form.weixinName">
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">备注</label>
-                <div class="col-sm-10">
-                  <textarea class="form-control" rows="3" placeholder="请输入备注" v-model="table2Form.remarks"></textarea>
-                </div>
-              </div>
+
+              <!--<div class="form-group">-->
+              <!--<label class="col-sm-2 control-label">电话</label>-->
+              <!--<div class="col-sm-10 radio">-->
+              <!--<label>-->
+              <!--<input type="radio" name="optionsRadios" v-model="table2Form.isTj" value="1">是-->
+              <!--</label>-->
+              <!--<label style="margin-left:1rem">-->
+              <!--<input type="radio" name="optionsRadios" v-model="table2Form.isTj" value="0">否-->
+              <!--</label>-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--<div class="form-group">-->
+              <!--<label class="col-sm-2 control-label">图片</label>-->
+              <!--<div class="col-sm-10">-->
+              <!--<label>-->
+              <!--<input type="file" value="上传图片" @change="pushimage" ref="file" id="image">-->
+              <!--</label>-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--<div class="form-group">-->
+                <!--<label class="col-sm-2 control-label">备注</label>-->
+                <!--<div class="col-sm-10">-->
+                  <!--<textarea class="form-control" rows="3" placeholder="请输入备注" v-model="table2Form.remarks"></textarea>-->
+                <!--</div>-->
+              <!--</div>-->
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
@@ -88,41 +102,39 @@
     data(){
       return {
         table2Form:{
-          code:'',
+          loginName:'',
           name:'',
-          typeId:'',
-          isTj:1,
-          remarks:'',
-          image:'',
-          seq:''
+          email:'',
+          phone:'',
+          sex:'',
+          weixinName:''
         },
-        typeName:[], //所有的类型名称
+        sexName:[{"sexName":"男","sexId":"0"},{"sexName":"女","sexId":"1"}], //所有的性别
         imageUrl:''
       }
     },
-    props:["searchByType"],
     methods:{
       //获取全部数据
-      getAllData(){
-        this.adminUtil.ajaxGetUtil('bgoodstype/queryBGoodsTypeByPaginationWithoutAuth',{
-            //params
-            rows:999,
-            page:1
-          },res=>{
-            this.typeName = [];
-            for (let i=0;i<res.rows.length;i++){
-              if (res.rows[i].isTop ==="0"){
-                this.typeName.push(res.rows[i]);
-              }
-            }
-          },err=>{
-            this.$notify.error({
-              title: '错误',
-              message: '网络错误',
-            });
-          }
-        )
-      },
+      // getAllData(){
+      //   this.adminUtil.ajaxGetUtil('bgoodstype/queryBGoodsTypeByPaginationWithoutAuth',{
+      //       //params
+      //       rows:999,
+      //       page:1
+      //     },res=>{
+      //       this.typeName = [];
+      //       for (let i=0;i<res.rows.length;i++){
+      //         if (res.rows[i].isTop ==="0"){
+      //           this.typeName.push(res.rows[i]);
+      //         }
+      //       }
+      //     },err=>{
+      //       this.$notify.error({
+      //         title: '错误',
+      //         message: '网络错误',
+      //       });
+      //     }
+      //   )
+      // },
       //上传图片
       pushimage(){
         const loading = this.$loading({
@@ -164,14 +176,13 @@
           spinner: 'el-icon-loading',
           background: 'rgba(255,255,255, 0.5)',
         });
-        this.adminUtil.ajaxPostUtil('bgoods/add',{
-          code:this.table2Form.code,
+        this.adminUtil.ajaxPostUtil('user/addUser',{
+          loginName:this.table2Form.loginName,
           name:this.table2Form.name,
-          typeId:this.table2Form.typeId,
-          isTj:this.table2Form.isTj,
-          imageUrl:this.table2Form.image,
-          remarks:this.table2Form.remarks,
-          seq:this.table2Form.seq
+          email:this.table2Form.email,
+          phone:this.table2Form.phone,
+          sex:this.table2Form.sex,
+          weixinName:this.table2Form.weixinName
         },res=>{
           if (res.code===200){
             loading.close();
@@ -180,7 +191,7 @@
               message: '保存成功!',
             });
             this.formReset();
-            this.$emit('table2DetailEvent',2);
+            this.$emit('usersInfoDetailEvent',2);
           }else{
             loading.close();
             this.$notify({
@@ -200,25 +211,21 @@
       //取消
       cancel(){
         this.formReset();
-        this.$emit('table2DetailEvent',3);
+        this.$emit('usersInfoDetailEvent',3);
       },
       //表单重置
       formReset(){
         let f = this.table2Form;
-        f.code = '';
+        f.loginName = '';
         f.name = '';
-        f.typeId = '';
-        f.isTj = 1;
-        f.remarks = '';
-        f.iamge = '';
-        this.typeName = [];
-      },
-      setTypeId(val){
-        this.table2Form.typeId=sessionStorage.getItem("typeId");
+        f.sex = '';
+        f.email = '';
+        f.phone = '';
+        f.weixinName = '';
       }
     },
     mounted(){
-      this.getAllData();
+
     }
   }
 </script>

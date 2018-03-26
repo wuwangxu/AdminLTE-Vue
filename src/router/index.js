@@ -66,6 +66,28 @@ const router = new Router({
           component:resolve => require(['../components/pages/tables/TableComponents/Table2MaintainAdd'], resolve),
           meta: { requireAuth: true }
         },
+        {
+          path: '/UsersInfo',
+          component:resolve => require(['../components/pages/tables/UsersInfo'], resolve),
+          meta: { requireAuth: true }
+        },
+        {
+          path: '/UsersInfo/edit',
+          name: 'UsersInfoEdit',
+          component:resolve => require(['../components/pages/tables/TableComponents/UsersInfoEdit'], resolve),
+          meta: { requireAuth: true }
+        },
+        {
+          path: '/OrderInfo',
+          component:resolve => require(['../components/pages/tables/OrderInfo'], resolve),
+          meta: { requireAuth: true }
+        },
+        {
+          path: '/OrderInfo/edit',
+          name: 'OrderInfoEdit',
+          component:resolve => require(['../components/pages/tables/TableComponents/OrderInfoEdit'], resolve),
+          meta: { requireAuth: true }
+        },
       ]
     }
   ]

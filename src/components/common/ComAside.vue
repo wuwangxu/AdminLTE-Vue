@@ -44,6 +44,32 @@
             <li><router-link to="/Table2"><i class="fa fa-circle-o"></i> 表格2</router-link></li>
           </ul>
         </li>
+
+        <li class="treeview">
+          <a>
+            <i class="fa fa-table"></i> <span>用户管理</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><router-link to="/UsersInfo"><i class="fa fa-circle-o"></i> 用户管理</router-link></li>
+            <li><router-link to="/"><i class="fa fa-circle-o"></i> 预留页面</router-link></li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a>
+            <i class="fa fa-table"></i> <span>订单管理</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><router-link to="/OrderInfo"><i class="fa fa-circle-o"></i> 订单管理</router-link></li>
+            <li><router-link to="/"><i class="fa fa-circle-o"></i> 预留页面</router-link></li>
+          </ul>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->

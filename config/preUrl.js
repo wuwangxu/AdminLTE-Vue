@@ -1,5 +1,5 @@
 //环境
-const devIp = '192.168.1.156';
+const devIp = '192.168.1.129';
 const devInterfacePORT = '8082';
 const devAssetsPORT = '8080';
 
